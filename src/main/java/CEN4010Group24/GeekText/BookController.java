@@ -12,11 +12,21 @@ public class BookController {
     @Autowired
     private BooksDAO bookDAO;
 
-    //THE GET ENDPOINT
+    //THE GET ENDPOINT FOR ALL BOOKS
     @GetMapping("/")
     public Books getBooks(){
         System.out.println("Pulling book");
         return bookDAO.getAllBooks();
+    }
+
+    @GetMapping("/{isbn}")
+    public ResponseEntity<Book> getBookByISBN(@PathVariable int isbn){
+        for(Book b : bookDAO.getAllBooks().getAllBooks()){
+            if(b.getBookISBN() == isbn){
+                return ResponseEntity.ok(b);
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
     //THE POST ENDPOINT
