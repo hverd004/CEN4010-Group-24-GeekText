@@ -12,9 +12,12 @@ public class Book {
     String bookGenre;
     String bookPublisher;
     int bookYearPublished;
-
     int bookCopiesSold;
 
+    //basic Constructor
+    public Book(){
+
+    }
     //book Constructor for All Information
     public Book(int bookISBN, String bookName,
                 String bookDescription, float bookPrice, String bookAuthor,
