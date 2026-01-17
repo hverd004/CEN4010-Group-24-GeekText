@@ -1,4 +1,4 @@
-package CEN4010Group24.GeekText;
+package CEN4010Group24.GeekText.Books;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 //THIS IS ONE OF THE MOST IMPORTANT CLASSES
 //IT HANDLES THE API ENDPOINTS (GET,POST,ETC.)
+
+//AI Usage: Used to explain how to send responses (ResponseEntity) and pass variables (GetMapping) as well as logic debugging
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -20,7 +22,7 @@ public class BookController {
     }
 
     @GetMapping("/{isbn}")
-    public ResponseEntity<Book> getBookByISBN(@PathVariable int isbn){
+    public ResponseEntity<Book> getBookByISBN(@PathVariable long isbn){
         for(Book b : bookDAO.getAllBooks().getAllBooks()){
             if(b.getBookISBN() == isbn){
                 return ResponseEntity.ok(b);

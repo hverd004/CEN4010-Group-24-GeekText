@@ -1,10 +1,10 @@
-package CEN4010Group24.GeekText;
+package CEN4010Group24.GeekText.Books;
 
 //NOTE: using region NAME endregion to compress code in IntelliJ IDE
-
+//AI Usage: None
 public class Book {
     //ALL THE INFORMATION VARIABLES FOR BOOKS
-    int bookISBN;
+    long bookISBN;
     String bookName;
     String bookDescription;
     float bookPrice;
@@ -19,7 +19,7 @@ public class Book {
 
     }
     //book Constructor for All Information
-    public Book(int bookISBN, String bookName,
+    public Book(long bookISBN, String bookName,
                 String bookDescription, float bookPrice, String bookAuthor,
                 String bookGenre, String bookPublisher, int bookYearPublished, int bookCopiesSold) {
 
@@ -36,7 +36,7 @@ public class Book {
     }
 
     //region Getters
-    public int getBookISBN() {
+    public long getBookISBN() {
         return bookISBN;
     }
 
@@ -74,7 +74,7 @@ public class Book {
     //endregion
 
     //region Setters
-    public void setBookISBN(int bookISBN) {
+    public void setBookISBN(long bookISBN) {
         this.bookISBN = bookISBN;
     }
 

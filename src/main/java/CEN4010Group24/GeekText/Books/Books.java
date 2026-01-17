@@ -1,9 +1,10 @@
-package CEN4010Group24.GeekText;
+package CEN4010Group24.GeekText.Books;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //Holds a list of books, may change later with database not sure yet
+//AI Usage: None
 public class Books {
     private List<Book> allBooks;
 
