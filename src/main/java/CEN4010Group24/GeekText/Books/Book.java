@@ -1,14 +1,28 @@
 package CEN4010Group24.GeekText.Books;
 
+import CEN4010Group24.GeekText.Authors.Author;
+import jakarta.persistence.*;
+
 //NOTE: using region NAME endregion to compress code in IntelliJ IDE
-//AI Usage: None
+//AI Usage: Help figure out all the @ that were needed to be a JPA entity
+@Entity
+@Table
 public class Book {
     //ALL THE INFORMATION VARIABLES FOR BOOKS
+    @Id
+    @Column(name = "isbn")
     long bookISBN;
     String bookName;
+
+    @Column(length = 2000)
     String bookDescription;
+
     float bookPrice;
-    String bookAuthor;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author bookAuthor;
+
     String bookGenre;
     String bookPublisher;
     int bookYearPublished;
@@ -20,7 +34,7 @@ public class Book {
     }
     //book Constructor for All Information
     public Book(long bookISBN, String bookName,
-                String bookDescription, float bookPrice, String bookAuthor,
+                String bookDescription, float bookPrice, Author bookAuthor,
                 String bookGenre, String bookPublisher, int bookYearPublished, int bookCopiesSold) {
 
         this.bookISBN = bookISBN;
@@ -52,7 +66,7 @@ public class Book {
         return bookPrice;
     }
 
-    public String getBookAuthor() {
+    public Author getBookAuthor() {
         return bookAuthor;
     }
 
@@ -90,7 +104,7 @@ public class Book {
         this.bookPrice = bookPrice;
     }
 
-    public void setBookAuthor(String bookAuthor) {
+    public void setBookAuthor(Author bookAuthor) {
         this.bookAuthor = bookAuthor;
     }
 
@@ -118,7 +132,7 @@ public class Book {
                 ", bookName='" + bookName + '\'' +
                 ", bookDescription='" + bookDescription + '\'' +
                 ", bookPrice=" + bookPrice +
-                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookAuthor='" + getBookAuthor().getAuthorID() + '\'' +
                 ", bookGenre='" + bookGenre + '\'' +
                 ", bookPublisher='" + bookPublisher + '\'' +
                 ", bookYearPublished=" + bookYearPublished +

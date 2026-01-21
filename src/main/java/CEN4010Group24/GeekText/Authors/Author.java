@@ -1,11 +1,21 @@
 package CEN4010Group24.GeekText.Authors;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "authors")
 public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id; //This will be the id of the author because it needs to be unique and names may not be (also databases like numbers)
     String firstName;
     String lastName;
+    @Column(length = 2000)
     String biography;
     String publisher;
-    String authorID; //This will just be "Firstname Lastname"
+
+    @Column(unique = true)
+    String authorID; //This will just be "Firstname Lastname" and is for easy access to full name for displaying it
 
     public Author(){
 
@@ -37,13 +47,19 @@ public class Author {
     }
     //endregion
 
+    public String getAuthorID(){
+        return authorID;
+    }
+
     //region Setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        this.authorID = firstName + " " + lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.authorID = firstName + " " + lastName;
     }
 
     public void setBiography(String biography) {

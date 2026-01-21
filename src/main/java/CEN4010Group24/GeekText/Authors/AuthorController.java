@@ -1,8 +1,7 @@
 package CEN4010Group24.GeekText.Authors;
 
 import CEN4010Group24.GeekText.Books.Book;
-import CEN4010Group24.GeekText.Books.Books;
-import CEN4010Group24.GeekText.Books.BooksDAO;
+import CEN4010Group24.GeekText.Books.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +14,17 @@ import java.util.List;
 public class AuthorController {
 
     @Autowired
-    private AuthorDAO authorDAO;
+    private AuthorRepository authorRepository;
     @Autowired
-    private BooksDAO booksDAO;
+    private BookRepository bookRepository;
 
-    @GetMapping("/{authorId}")
-    public ResponseEntity<Books> getAllBooksByAuthor(@PathVariable String authorId){
-        Books authorBooks = new Books();
-        List<Book> authorBooksList = new ArrayList<Book>();
-        for(Book b : booksDAO.getAllBooks().getAllBooks()){
-            System.out.println(b.getBookAuthor() + " and " + authorId);
-            if(b.getBookAuthor().equals(authorId)){
-                authorBooksList.add(b);
-            }
+    @GetMapping("/{authorId}/books")
+    public ResponseEntity<List<Book>> getAllBooksByAuthor(@PathVariable long authorId){
+        if (!authorRepository.existsById(authorId)) {
+            return ResponseEntity.notFound().build();
         }
-        authorBooks.setBookList(authorBooksList);
-        return ResponseEntity.ok(authorBooks);
+
+        return ResponseEntity.ok(bookRepository.findByBookAuthor_AuthorID(authorId));
     }
 
     @PostMapping("/")
@@ -42,7 +36,7 @@ public class AuthorController {
 
         // Add book to system
         System.out.println("Received author: " + author);
-        authorDAO.addAnAuthor(author);
+        authorRepository.save(author);
 
         // Success, no response body
         return ResponseEntity.status(201).build(); // CREATED
