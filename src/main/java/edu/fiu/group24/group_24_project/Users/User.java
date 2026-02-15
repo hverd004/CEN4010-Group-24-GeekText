@@ -8,13 +8,16 @@ public class User {
     @Id
     @Column(name = "username")
     String userUsername;
-
+    @Column(name = "password", nullable = false)
     String userPassword;
+    @Column(name = "first_name")
     String userFirstName;
+    @Column(name = "last_name")
     String userLastName;
+    @Column(name = "email")
     String userEmail;
 
-    @Column(length = 1000)
+    @Column(length = 1000, name = "home_address")
     String userHomeAddress;
 
     public User() {
