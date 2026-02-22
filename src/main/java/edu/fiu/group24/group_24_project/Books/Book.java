@@ -71,7 +71,7 @@ public class Book {
     }
 
     //region Getters
-    public String getBookISBN() {
+    public String getIsbn() {
         return isbn;
     }
 

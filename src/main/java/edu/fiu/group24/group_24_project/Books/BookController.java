@@ -2,6 +2,10 @@ package edu.fiu.group24.group_24_project.Books;
 
 import edu.fiu.group24.group_24_project.Authors.Author;
 import edu.fiu.group24.group_24_project.Authors.AuthorRepository;
+import edu.fiu.group24.group_24_project.Genres.Genre;
+import edu.fiu.group24.group_24_project.Genres.GenreRepository;
+import edu.fiu.group24.group_24_project.Publishers.Publisher;
+import edu.fiu.group24.group_24_project.Publishers.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,10 @@ public class BookController {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private GenreRepository genreRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
     //THE GET ENDPOINT FOR ALL BOOKS
     @GetMapping("/")
@@ -34,19 +42,35 @@ public class BookController {
 
     //THE POST ENDPOINT
     @PostMapping("/")
-    public ResponseEntity<Void> addBook(@RequestBody Book book, @RequestParam Integer authorId){
-        // Validate input
-        if (book == null || book.getBookISBN().isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        Author author = authorRepository.findById(authorId).orElseThrow();
-        book.setBookAuthor(author);
+    public ResponseEntity<?> addBook(@RequestBody Book book, @RequestParam Integer authorId) {
 
-        // Add book to system
-        System.out.println("Received book: " + book);
+        if (book == null || book.getIsbn() == null) {
+            return ResponseEntity.badRequest().body("ISBN is required.");
+        }
+
+        Author author = authorRepository.findById(authorId).orElse(null);
+        if (author == null) {
+            return ResponseEntity.status(404).body("Author not found with ID: " + authorId);
+        }
+
+        String genreName = book.getBookGenre().getGenre();
+        Genre genre = genreRepository.findById(genreName).orElse(null);
+        if (genre == null) {
+            return ResponseEntity.status(404).body("Genre not found: " + genreName);
+        }
+
+        String publisherName = book.getBookPublisher().getPublisher_name();
+        Publisher publisher = publisherRepository.findById(publisherName).orElse(null);
+        if (publisher == null) {
+            return ResponseEntity.status(404).body("Publisher not found: " + publisherName);
+        }
+
+        book.setBookAuthor(author);
+        book.setBookGenre(genre);
+        book.setBookPublisher(publisher);
+
         bookRepository.save(book);
 
-        // Success, no response body
-        return ResponseEntity.status(201).build(); // CREATED
+        return ResponseEntity.status(201).body("Book created successfully.");
     }
 }
