@@ -21,7 +21,7 @@ public class AuthorController {
     private PublisherRepository publisherRepository;
 
     @GetMapping("/{authorId}/books")
-    public ResponseEntity<List<Book>> getAllBooksByAuthor(@PathVariable Integer authorId){
+    public ResponseEntity<List<Book>> getAllBooksByAuthor(@PathVariable Long authorId){
         if (!authorRepository.existsById(authorId)) {
             return ResponseEntity.notFound().build();
         }

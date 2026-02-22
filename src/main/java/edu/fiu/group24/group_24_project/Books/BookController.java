@@ -42,22 +42,19 @@ public class BookController {
 
     //THE POST ENDPOINT
     @PostMapping("/")
-    public ResponseEntity<?> addBook(@RequestBody Book book, @RequestParam Integer authorId) {
+    public ResponseEntity<?> addBook(@RequestBody Book book) {
 
         if (book == null || book.getIsbn() == null) {
             return ResponseEntity.badRequest().body("ISBN is required.");
         }
 
-        Author author = authorRepository.findById(authorId).orElse(null);
+        Author author = authorRepository.findById(book.getBookAuthor().getAuthorId()).orElse(null);
         if (author == null) {
-            return ResponseEntity.status(404).body("Author not found with ID: " + authorId);
+            return ResponseEntity.status(404).body("Author not found with ID: " + book.getBookAuthor().getAuthorId());
         }
 
         String genreName = book.getBookGenre().getGenre();
-        Genre genre = genreRepository.findById(genreName).orElse(null);
-        if (genre == null) {
-            return ResponseEntity.status(404).body("Genre not found: " + genreName);
-        }
+        Genre genre = genreRepository.findById(genreName).orElseGet(() -> genreRepository.save(book.getBookGenre()));
 
         String publisherName = book.getBookPublisher().getPublisher_name();
         Publisher publisher = publisherRepository.findById(publisherName).orElse(null);
