@@ -36,7 +36,7 @@ public class AuthorController {
             return ResponseEntity.badRequest().build();
         }
 
-        // Add author to system
+        // Add author & publisher to system
         System.out.println("Received author: " + author);
         if(!publisherRepository.existsById(author.getPublisher().getPublisher_name())){
             System.out.println("Creating Publisher: " + author.getPublisher().getPublisher_name());
