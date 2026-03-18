@@ -1,4 +1,4 @@
-package edu.fiu.group24.group_24_project.feature_1.genre.book;
+package edu.fiu.group24.group_24_project.feature_1;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
