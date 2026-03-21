@@ -1,5 +1,6 @@
 package edu.fiu.group24.group_24_project.feature_1;
 
+import edu.fiu.group24.group_24_project.Books.Book;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,11 +19,11 @@ public class BookBrowsingService {
         if(genre == null || genre.isBlank()) {
             throw new IllegalArgumentException("genre is required");
         }
-        return bookBrowsingRepository.findByGenreNameIgnoreCaseOrderByTitleAsc(genre.trim());
+        return bookBrowsingRepository.findByBookGenre_GenreIgnoreCaseOrderByBookNameAsc(genre.trim());
     }
 
     public List<Book> getTopSellers() {
-        return bookBrowsingRepository.findTop10ByOrderByCopiesSoldDesc();
+        return bookBrowsingRepository.findTop10ByOrderByBookCopiesSoldDesc();
     }
 
     public List<Book> getBooksByMinRating(BigDecimal minRating) {
