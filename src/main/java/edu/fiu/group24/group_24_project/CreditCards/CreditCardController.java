@@ -23,7 +23,7 @@ public class CreditCardController {
 
 
     @DeleteMapping("/{username}/{id}")
-    public ResponseEntity<Void> deleteCreditCard(@PathVariable String username, @PathVariable Long id) {
+    public ResponseEntity<Void> deleteCreditCard(@PathVariable String username, @PathVariable Integer id) {
         return creditCardRepository.findById(id)
                 .map(card -> {
                     // Check if the card's username matches the URL username
@@ -44,7 +44,7 @@ public class CreditCardController {
     }
     // PUT: Update card info for a specific user
     @PutMapping("/{username}/{id}")
-    public ResponseEntity<CreditCard> updateCard(@PathVariable String username, @PathVariable Long id, @RequestBody CreditCard updatedInfo) {
+    public ResponseEntity<CreditCard> updateCard(@PathVariable String username, @PathVariable Integer id, @RequestBody CreditCard updatedInfo) {
         return creditCardRepository.findById(id)
                 .map(card -> {
                     // Only update if the username matches (Simple Security)

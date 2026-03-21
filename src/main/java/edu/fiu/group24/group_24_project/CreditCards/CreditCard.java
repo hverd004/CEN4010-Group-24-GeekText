@@ -9,7 +9,7 @@ public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
-    private Long cardId;
+    private Integer cardId;
 
     private String username;
 
@@ -27,8 +27,8 @@ public class CreditCard {
     public CreditCard() {}
 
     // Getters and Setters
-    public Long getCardId() { return cardId; }
-    public void setCardId(Long cardId) { this.cardId = cardId; }
+    public Integer getCardId() { return cardId; }
+    public void setCardId(Integer cardId) { this.cardId = cardId; }
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getCardBrand() { return cardBrand; }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CreditCardRepository extends JpaRepository<CreditCard, Long> {
+public interface CreditCardRepository extends JpaRepository<CreditCard, Integer> {
     // This naming convention tells Spring to filter by the 'username' column
     List<CreditCard> findByUsername(String username);
 }
