@@ -14,7 +14,7 @@ INSERT INTO author (first_name, last_name, biography, publisher_name) VALUES
 ('Frank', 'Herbert', 'Best known for the Dune saga.', 'Del Rey');
 
 -- 4. Insert Users (Feature 2 - Randomly Generated Usernames)
-INSERT INTO user_profile (username, password, first_name, last_name, email, home_address) VALUES
+INSERT INTO user_profile (username, password, first_name, last_name, email, home_address) VALUES 
 ('pixel_drifter99', 'p@ssw0rd1', 'Jordan', 'Smith', 'jsmith@example.com', '101 Maple St, Miami, FL'),
 ('cyber_knight_2026', 'cryptic77', 'Casey', 'Vance', 'cvance@example.com', '555 Tech Way, San Jose, CA'),
 ('book_worm_beta', 'readMore5', 'Morgan', 'Lee', 'mlee@example.com', '222 Library Ln, Austin, TX'),
@@ -22,7 +22,7 @@ INSERT INTO user_profile (username, password, first_name, last_name, email, home
 
 -- 5. Insert Credit Cards (Feature 2 - Standard Brands)
 -- 'pixel_drifter99' has multiple cards for testing
-INSERT INTO credit_card (username, card_brand, last4, exp_month, exp_year) VALUES
+INSERT INTO credit_card (username, card_brand, last4, exp_month, exp_year) VALUES 
 ('pixel_drifter99', 'Visa', '4242', 12, 2028),
 ('pixel_drifter99', 'Mastercard', '5678', 05, 2030),
 ('cyber_knight_2026', 'American Express', '1001', 08, 2027),
