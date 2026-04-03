@@ -17,21 +17,30 @@ public class BookBrowsingController {
         this.bookBrowsingService = bookService;
     }
 
-    // Requirement #1: Get books by a specific genre
+    // Requirement #1: GET books by a specific genre
     @GetMapping("/genre/{genreName}")
-    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable String genreName) {
+    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable("genreName") String genreName) {
         return ResponseEntity.ok(bookBrowsingService.getBooksByGenre(genreName));
     }
 
-    // Requirement #2: Get the top 10 best-selling books
+    // Requirement #2: GET the top 10 best-selling books
     @GetMapping("/top-sellers")
     public ResponseEntity<List<Book>> getTopSellers() {
         return ResponseEntity.ok(bookBrowsingService.getTopSellers());
     }
 
-    // Requirement #3: Get books by particular rating or higher
+    // Requirement #3: GET books by particular rating or higher
     @GetMapping("/rating/{minRating}")
-    public ResponseEntity<List<Book>> getBooksByMinRating(@PathVariable BigDecimal minRating) {
+    public ResponseEntity<List<Book>> getBooksByMinRating(@PathVariable("minRating") BigDecimal minRating) {
         return ResponseEntity.ok(bookBrowsingService.getBooksByMinRating(minRating));
+    }
+
+    // Requirement #4: PATCH Publisher discount
+    @PatchMapping("/discount")
+    public ResponseEntity<Void> applyPublisherDiscount(
+            @RequestParam("publisher") String publisherName,
+            @RequestParam("discount") BigDecimal discountPercent) {
+        bookBrowsingService.applyPublisherDiscount(publisherName, discountPercent);
+        return ResponseEntity.noContent().build();
     }
 }

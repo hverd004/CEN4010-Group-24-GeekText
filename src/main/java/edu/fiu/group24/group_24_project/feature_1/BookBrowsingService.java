@@ -4,6 +4,7 @@ import edu.fiu.group24.group_24_project.Books.Book;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -34,5 +35,17 @@ public class BookBrowsingService {
             throw new IllegalArgumentException("Rating must be between 0 and 5");
         }
         return bookBrowsingRepository.findByAvgRatingGreaterThanEqualOrderByAvgRatingDesc(minRating);
+    }
+
+    public void applyPublisherDiscount(String publisherName, BigDecimal discountPercent) {
+        List<Book> books = bookBrowsingRepository.findByPublisherName(publisherName.trim());
+
+        for (Book book : books) {
+            BigDecimal newPrice = book.getBookPrice()
+                    .multiply(BigDecimal.ONE.subtract(discountPercent.divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP)));
+            book.setBookPrice(newPrice.setScale(2, RoundingMode.HALF_UP));
+        }
+
+        bookBrowsingRepository.saveAll(books);
     }
 }
