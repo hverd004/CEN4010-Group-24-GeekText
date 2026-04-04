@@ -18,8 +18,8 @@ public class BookBrowsingController {
     }
 
     // Requirement #1: GET books by a specific genre
-    @GetMapping("/genre/{genreName}")
-    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable("genreName") String genreName) {
+    @GetMapping({"/genre","/genre/{genreName}"})
+    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable(value = "genreName", required = false) String genreName) {
         return ResponseEntity.ok(bookBrowsingService.getBooksByGenre(genreName));
     }
 
@@ -42,5 +42,10 @@ public class BookBrowsingController {
             @RequestParam("discount") BigDecimal discountPercent) {
         bookBrowsingService.applyPublisherDiscount(publisherName, discountPercent);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
