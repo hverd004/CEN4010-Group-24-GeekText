@@ -18,7 +18,7 @@ public class BookBrowsingService {
 
     public List<Book> getBooksByGenre(String genre) {
         if(genre == null || genre.isBlank()) {
-            throw new IllegalArgumentException("genre is required");
+            throw new IllegalArgumentException("Genre is required");
         }
         return bookBrowsingRepository.findByBookGenre_GenreIgnoreCaseOrderByBookNameAsc(genre.trim());
     }
