@@ -11,11 +11,13 @@ public class CreditCard {
     @Column(name = "card_id")
     private Integer cardId;
 
+    @Column(name = "username")
     private String username;
 
     @Column(name = "card_brand")
     private String cardBrand;
 
+    @Column(name = "last4")
     private String last4;
 
     @Column(name = "exp_month")
